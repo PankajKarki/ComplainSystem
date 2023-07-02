@@ -43,13 +43,12 @@ class CrudComplaint:
     @staticmethod
     async def approve(id_):
         await database.execute(complaint.update().where(complaint.c.id == id_).values(status=State.approved))
-        email = await database.fetch_one(complaint.select().where(complaint.c.id == id_))
-        print(email)
         ses.send_mail(
             "Complaint aproved!", 
-            ["pankaj.karki.786@gmail.com"], 
+            ["email"], 
             "Congrats! Your claim is approved check your bank account in 2 days for your refund"
             )
+
 
 
     @staticmethod
